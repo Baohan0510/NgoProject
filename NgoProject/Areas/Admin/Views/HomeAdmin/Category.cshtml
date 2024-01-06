@@ -17,10 +17,10 @@
                     <thead>
                         <tr>
                             <th>
-                                    @Html.DisplayNameFor(model => model.CategoryName)
+                                @Html.DisplayNameFor(model => model.CategoryName)
                             </th>
                             <th>
-                                    @Html.DisplayNameFor(model => model.CategoryDescription)
+                                @Html.DisplayNameFor(model => model.CategoryDescription)
                             </th>
                             <th></th>
                             <th></th>
@@ -36,11 +36,11 @@
                         {
                             i = i + 1;
                             cls = "table-warning";
-                            if(i % 2 == 0)
+                            if (i % 2 == 0)
                             {
                                 cls = "table-primary";
                             }
-                        
+
                             <tr class="@cls">
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CategoryName)
@@ -49,11 +49,11 @@
                                     @Html.DisplayFor(modelItem => item.CategoryDescription)
                                 </td>
                                 <td>
-                                    <a asp-action="EditCategory" asp-route-id="@item.CategoryId">Edit</a>
-                                   
+                                    <a style="text-decoration:none" asp-action="EditCategory" asp-route-id="@item.CategoryId">Edit</a>
+
                                 </td>
                                 <td>
-                                    <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                                    <a style="text-decoration:none" asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
                                 </td>
 
                             </tr>

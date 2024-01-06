@@ -432,6 +432,20 @@
                             </ul>
                         </div>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                            <i class="icon-columns menu-icon"></i>
+                            <span class="menu-title">About Us</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-elements">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" asp-area="admin" asp-controller="HomeAdmin" asp-action="AboutUs">About Us List</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="admin" asp-controller="HomeAdmin" asp-action="AddQuestion">Add About Us Question</a></li>
+                            </ul>
+                        </div>
+                    </li>
                   @*  <li class="nav-item">
                         <a class="nav-link" href="~/admin/pages/documentation/documentation.html">
                             <i class="icon-paper menu-icon"></i>

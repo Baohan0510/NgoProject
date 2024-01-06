@@ -8,20 +8,18 @@
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Oyr Partner</h4>
+            <h4 class="card-title">Our Partner</h4>
             <p class="card-description">
-                <code>partner brands</code>
+                <code>All Partner Brands</code>
             </p>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                        
-                            <th>  Name</th>
-                            <th>  Logo</th>
-                            <th> About</th>
 
-                          
+                            <th> Name</th>
+                            <th> Logo</th>
+                            <th> About</th>
                             <th> Phone</th>
                             <th> AddressWeb</th>
                             <th>Mail</th>
@@ -35,7 +33,7 @@
 
 
                             <tr>
-                       
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.OurpartnerName)
                                 </td>
@@ -43,8 +41,8 @@
                                     <img src="~/user/images/slide/@item.OurpartnerLogo" style="width:100px ; height:auto ; border-radius: 10%;">
                                 </td>
                                 <td style="white-space:pre-line">
-                                            @Html.DisplayFor(modelItem => item.OurpartnerAddress)
-                               
+                                    @Html.DisplayFor(modelItem => item.OurpartnerAddress)
+
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.OurpartnerPhone)
@@ -59,20 +57,12 @@
 
                                 </td>
                                 <td>
-                             @*        <a asp-action="BannerEdit" asp-route-id="@item.OurpartnerId">Edit</a> *@
-                                    <a href="@Url.Action("DeleteOur","HomeAdmin", new {id = item.OurpartnerId})">Delete</a>
-
-
-                                    <a href="@Url.Action("OurPartnerEdit","HomeAdmin", new {id = item.OurpartnerId})">Edit</a>
-
+                                    @*        <a asp-action="BannerEdit" asp-route-id="@item.OurpartnerId">Edit</a> *@
+                                    <a style="text-decoration:none" href="@Url.Action("OurPartnerEdit","HomeAdmin", new {id = item.OurpartnerId})">Edit |</a>
+                                    <a style="text-decoration:none" href="@Url.Action("DeleteOur","HomeAdmin", new {id = item.OurpartnerId})">Delete</a>
                                 </td>
-
-
                             </tr>
                         }
-                      
-                        
-
                     </tbody>
                 </table>
             </div>

@@ -61,8 +61,19 @@ namespace NgoProject.Controllers
 
         //}
 
-       
-       
+        public IActionResult IndexAboutUs()
+        {
+
+            return View(new Models.Ienumerable
+            {
+                Abu = db.Aboutus.ToList(),
+                questionAbouts = db.qa.ToList(),
+            });
+
+        }
+
+
+
 
     }
 }

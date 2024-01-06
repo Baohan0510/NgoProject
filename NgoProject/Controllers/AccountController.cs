@@ -39,7 +39,7 @@ namespace NgoProject.Controllers
                 {
                     return Redirect(loginVM.ReturnUrl ?? "/");
                 }
-                ModelState.AddModelError("", "Uername or Password false");
+                ModelState.AddModelError("", "Username or Password false");
             }
             return View(loginVM);
         }

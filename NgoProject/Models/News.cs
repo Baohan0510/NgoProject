@@ -8,13 +8,13 @@ public partial class News
 {
     [Key]
     public int NewsId { get; set; }
-
+    [Required]
     public string? NewsName { get; set; }
-
+    [Required]
     public string? NewsImage1 { get; set; }
-
+    [Required]
     public string? NewsContent { get; set; }
-
+    [Required]
     public string? NewsDescription { get; set; }
 
     public int? CategoryId { get; set; }

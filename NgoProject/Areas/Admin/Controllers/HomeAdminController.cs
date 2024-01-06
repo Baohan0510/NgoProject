@@ -112,7 +112,7 @@ namespace NgoProject.Areas.Admin.Controllers
             });
 
         }
-     
+
 
         [Route("BannerEdit")]
         [HttpPost]
@@ -230,7 +230,7 @@ namespace NgoProject.Areas.Admin.Controllers
 
 
                 // db.Set<Banner>().Update(p);
-              
+
                 db.Attach(p).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Banner", "HomeAdmin");
@@ -337,7 +337,7 @@ namespace NgoProject.Areas.Admin.Controllers
         [Route("csxc094")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OurPartnerEdit(int id ,  ViewModelOurPartner model)
+        public async Task<IActionResult> OurPartnerEdit(int id, ViewModelOurPartner model)
         {
             Ourpartner? k = db.Ourpartners!.Find(id);
 
@@ -347,7 +347,7 @@ namespace NgoProject.Areas.Admin.Controllers
                 if (model.OurpartnerLogo != null && model.OurpartnerLogo.Length > 0)
                 {
                     imageFilename = model.OurpartnerLogo.FileName;
-                    var imgFolder = Path.Combine(_hostEnvironment.WebRootPath, "user/images/slide" );
+                    var imgFolder = Path.Combine(_hostEnvironment.WebRootPath, "user/images/slide");
                     if (!Directory.Exists(imgFolder))
                     {
                         Directory.CreateDirectory(imgFolder);
@@ -371,15 +371,165 @@ namespace NgoProject.Areas.Admin.Controllers
                 };
 
 
-               //  db.Set<Ourpartner>().Update(p); nay la add 
+                //  db.Set<Ourpartner>().Update(p); nay la add 
                 db.Entry(p).State = EntityState.Modified;
-              //  db.Attach(p).State = EntityState.Modified;
+                //  db.Attach(p).State = EntityState.Modified;
 
                 await db.SaveChangesAsync();
                 return RedirectToAction("OurPartner", "HomeAdmin");
             }
             return View(model);
         }
+
+        [Route("AboutUs")]
+        [HttpGet]
+        public IActionResult AboutUs()
+        {
+            return View(new Models.Ienumerable
+            {
+                Abu = db.Aboutus.ToList(),
+                questionAbouts = db.qa.ToList()
+            });
+
+        }
+
+
+
+        [Route("AddQuestion")]
+        [HttpGet]
+        public IActionResult AddQuestion()
+        {
+
+            return View();
+        }
+
+
+        [Route("AddQuestion")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddQuestion(QuestionAbout qa)
+        {
+            if (ModelState.IsValid)
+            {
+                db.qa.Add(qa);
+                db.SaveChanges();
+                return RedirectToAction("AboutUs");
+            }
+            return View(qa);
+
+        }
+
+        [Route("EditQuestion")]
+        [HttpPost]
+        public async Task<IActionResult> EditQuestion(ViewModelQuestionAbout model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                QuestionAbout ab = new QuestionAbout
+                {
+                    Id = model.Id,
+                    Question = model.Question,
+                    Answer = model.Answer,
+                    //Image = imageFilename
+                };
+
+                db.Attach(ab).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("AboutUs", "HomeAdmin");
+            }
+            return View(model);
+        }
+
+        [Route("EditQuestion")]
+        [HttpGet]
+        public async Task<IActionResult> EditQuestion(int id)
+        {
+            QuestionAbout? ab = await db.qa!.FindAsync(id);
+
+            var view = new ViewModelQuestionAbout
+            {
+                Id = ab!.Id,
+                Question = ab.Question,
+                Answer = ab.Answer,
+            };
+            return View(view);
+        }
+
+        [Route("DeleteQuestion")]
+
+        public async Task<ActionResult> DeleteQuestion(int id)
+        {
+            var cus = await db.qa!.SingleOrDefaultAsync(x => x.Id == id);
+            db.qa.Remove(cus!);
+            db.SaveChanges();
+            return RedirectToAction("AboutUs", "HomeAdmin");
+        }
+
+
+
+        [Route("EditAbout")]
+        [HttpPost]
+        public async Task<IActionResult> EditAbout(ViewModelAbout model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string imageFilename = string.Empty;
+                if (model.Photo != null && model.Photo.Length > 0)
+                {
+                    imageFilename = model.Photo.FileName;
+                    var imgFolder = Path.Combine(_hostEnvironment.WebRootPath, "admin/uploads");
+                    if (!Directory.Exists(imgFolder))
+                    {
+                        Directory.CreateDirectory(imgFolder);
+
+                    }
+                    var imgPath = Path.Combine(imgFolder, imageFilename);
+                    var fs = new FileStream(imgPath, FileMode.OpenOrCreate);
+                    await model.Photo.CopyToAsync(fs);
+                }
+
+                Aboutu ab = new Aboutu
+                {
+                    Id = model.Id,
+                    Title = model.Title,
+                    Content = model.Content,
+                    Image = imageFilename
+                };
+
+                db.Attach(ab).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("AboutUs", "HomeAdmin");
+            }
+            return View(model);
+        }
+
+        [Route("EditAbout")]
+        [HttpGet]
+        public async Task<IActionResult> EditAbout(int id)
+        {
+            Aboutu? ab = await db.Aboutus!.FindAsync(id);
+
+            var view = new ViewModelAbout
+            {
+                Id = ab!.Id,
+                Title = ab.Title,
+                Content = ab.Content,
+            };
+            return View(view);
+        }
+
+        [Route("DeleteAbout")]
+
+        public async Task<ActionResult> DeleteAbout(int id)
+        {
+            var cus = await db.Aboutus!.SingleOrDefaultAsync(x => x.Id == id);
+            db.Aboutus.Remove(cus!);
+            db.SaveChanges();
+            return RedirectToAction("AboutUs", "HomeAdmin");
+        }
+
 
 
     }
